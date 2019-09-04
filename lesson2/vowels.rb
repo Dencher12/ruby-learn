@@ -1,9 +1,10 @@
-vowels = {
-  a: 1,
-  e: 5,
-  i: 9,
-  o: 15,
-  u: 21
-}
+alph = ('a'..'z').to_a
+vowels = %w([ a e i o u ])
+result = {}
 
-puts vowels
+alph.each_index do |index|
+  letter = alph[index]
+  result[letter] = index + 1 if vowels.include?(letter)
+end
+
+puts result
