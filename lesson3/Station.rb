@@ -76,7 +76,7 @@ class Train
   end
 
   def unhook
-    if @speed == 0
+    if @speed == 0 && @car_quantity > 0
       puts "Поезд #{id}: Вагон успешно отцеплен"
       @car_quantity -= 1
     else
@@ -131,9 +131,22 @@ train = Train.new('A45', 'cargo')
 route = Route.new(station1, station3)
 route.add_station(station2)
 train.take_route(route)
+train.speed_up(20)
+train.hook
+train.brake
 train.hook
 train.hook
-train.hook
+train.unhook
+puts train.car_quantity
+
 train.move('forward')
 train.move('forward')
 train.move('forward')
+train.move('back')
+train.move('back')
+train.move('back')
+
+route.delete_station(station2)
+puts route.stations
+
+
