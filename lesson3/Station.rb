@@ -123,30 +123,4 @@ class Train
   end
 end
 
-station1 = Station.new('Первая')
-station2 = Station.new('Вторая')
-station3 = Station.new('Третья')
-
-train = Train.new('A45', 'cargo')
-route = Route.new(station1, station3)
-route.add_station(station2)
-train.take_route(route)
-train.speed_up(20)
-train.hook
-train.brake
-train.hook
-train.hook
-train.unhook
-puts train.car_quantity
-
-train.move('forward')
-train.move('forward')
-train.move('forward')
-train.move('back')
-train.move('back')
-train.move('back')
-
-route.delete_station(station2)
-puts route.stations
-
 
