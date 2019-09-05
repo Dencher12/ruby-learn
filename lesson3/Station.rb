@@ -91,7 +91,7 @@ class Train
     route.stations[0].take_train(self)
   end
 
-  def move_forward
+  def move_forward64
     if @route.stations[-1] != self
       @route.stations[@station_index].send_train(self)
       @station_index += 1
