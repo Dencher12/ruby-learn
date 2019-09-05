@@ -91,40 +91,33 @@ class Train
     route.stations[0].take_train(self)
   end
 
-  def move_forward64
-    if @route.stations[-1] != self
-      @route.stations[@station_index].send_train(self)
-      @station_index += 1
-      @route.stations[station_index].take_train(self)
-    end
+  def move(direction)
+    current_station.send_train(self)
+    forward if direction == 'forward'
+    back if direction == 'back'
+    current_station.take_train(self)
   end
 
-  def move_back
-    if @route.stations[0] != self
-      @route.stations[@station_index].send_train(self)
-      @station_index -= 1
-      @route.stations[station_index].take_train(self)
-    end
+  def forward
+    @station_index += 1 if @route.stations.last != current_station
+  end
+
+  def back
+    @station_index -= 1 if @route.stations.first != current_station
   end
 
   def current_station
-    station = @route.stations[@station_index].name
-    puts "Поезд #{id}: текущая остановка - #{station}"
     @route.stations[@station_index]
   end
 
   def next_station
     if current_station != @route.stations.last
-      station = @route.stations[@station_index + 1].name
-      puts "Поезд #{id}: следущая остановка - #{station}"
       @route.stations[@station_index + 1]
     end
   end
 
   def prev_station
     if current_station != @route.stations.first
-      station = @route.stations[@station_index - 1].name
-      puts "Поезд #{id}: предидущая остановка - #{station}"
       @route.stations[@station_index - 1]
     end
   end
@@ -141,6 +134,6 @@ train.take_route(route)
 train.hook
 train.hook
 train.hook
-train.move_forward
-train.move_forward
-train.next_station
+train.move('forward')
+train.move('forward')
+train.move('forward')
