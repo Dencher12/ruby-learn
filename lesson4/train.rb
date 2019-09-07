@@ -1,59 +1,8 @@
-class Station
-  attr_reader :trains, :name
-
-  def initialize(name)
-    @name = name
-    @trains = []
-  end
-
-  def take_train(train)
-    if train.type == :cargo
-      puts "Грузовой поезд #{train.id} прибывает на станцию #{@name}"
-    else
-      puts "Пассажирский поезд #{train.id} прибывает на станцию #{@name}"
-    end
-    @trains << train
-  end
-
-  def send_train(train)
-    if train.type == :cargo
-      puts "Грузовой поезд #{train.id} отправляется со станции #{@name}"
-    else
-      puts "Пассажирский поезд #{train.id} отправляется со станции #{@name}"
-    end
-    @trains.delete(train)
-  end
-
-  def train_by_type(type)
-    @trains.select { |t| t.type == type }
-  end
-end
-
-class Route
-  attr_reader :stations, :name
-
-  def initialize(firts_station, last_station)
-    @stations = [firts_station, last_station]
-    @name = "#{firts_station.name} - #{last_station.name}"
-  end
-
-  def add_station(station)
-    @stations.insert(-2, station)
-  end
-
-  def delete_station(station)
-    if station != @stations.last && station != @stations.first
-      @stations.delete(station)
-    end
-  end
-end
-
 class Train
-  attr_reader :id, :type, :car_quantity, :speed, :station_index
+  attr_reader :id, :car_quantity, :speed, :station_index
 
-  def initialize(id, type, car_quantity = 0)
+  def initialize(id)
     @id = id
-    @type = type
     @car_quantity = car_quantity
     @speed = 0
     puts @type.class

@@ -1,4 +1,0 @@
-{
-  "ruby.rubocop.executePath": "/usr/lib/ruby/vendor_ruby/",
-  "ruby.rubocop.useBundler": false
-}
