@@ -16,17 +16,17 @@ class Train
     @speed += num.abs
   end
 
-  def hook
-    if @speed.zero
+  def hook(car, type = nil)
+    if @speed.zero? && car.class == type || type.nil?
+      @cars << car
       puts "Поезд #{id}: Вагон успешно прицеплен"
-      @car_quantity += 1
     else
-      puts "Поезд #{id}: Невозвожно прицепить вагон во время движения"
+      puts "Поезд #{id}: Ошибка (скорость > 0 или это не грузовой вагон)"
     end
   end
 
-  def unhook
-    if @speed.zero && @car_quantity.positive
+  def unhook(car)
+    if @speed.zero? && @cars.delete(car)
       puts "Поезд #{id}: Вагон успешно отцеплен"
       @car_quantity -= 1
     else
@@ -48,14 +48,6 @@ class Train
     current_station.take_train(self)
   end
 
-  def forward
-    @station_index += 1 if @route.stations.last != current_station
-  end
-
-  def back
-    @station_index -= 1 if @route.stations.first != current_station
-  end
-
   def current_station
     @route.stations[@station_index]
   end
@@ -70,5 +62,16 @@ class Train
     if current_station != @route.stations.first
       @route.stations[@station_index - 1]
     end
+  end
+
+  # нужны только для работы внутреннего метода(move)
+  private
+
+  def forward
+    @station_index += 1 if @route.stations.last != current_station
+  end
+
+  def back
+    @station_index -= 1 if @route.stations.first != current_station
   end
 end
