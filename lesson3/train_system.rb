@@ -7,7 +7,7 @@ class Station
   end
 
   def take_train(train)
-    if train.type == 'cargo'
+    if train.type == :cargo
       puts "Грузовой поезд #{train.id} прибывает на станцию #{@name}"
     else
       puts "Пассажирский поезд #{train.id} прибывает на станцию #{@name}"
@@ -16,7 +16,7 @@ class Station
   end
 
   def send_train(train)
-    if train.type == 'cargo'
+    if train.type == :cargo
       puts "Грузовой поезд #{train.id} отправляется со станции #{@name}"
     else
       puts "Пассажирский поезд #{train.id} отправляется со станции #{@name}"
@@ -56,6 +56,7 @@ class Train
     @type = type
     @car_quantity = car_quantity
     @speed = 0
+    puts @type.class
   end
 
   def brake
@@ -67,7 +68,7 @@ class Train
   end
 
   def hook
-    if @speed == 0
+    if @speed.zero
       puts "Поезд #{id}: Вагон успешно прицеплен"
       @car_quantity += 1
     else
@@ -76,7 +77,7 @@ class Train
   end
 
   def unhook
-    if @speed == 0 && @car_quantity > 0
+    if @speed.zero && @car_quantity.positive
       puts "Поезд #{id}: Вагон успешно отцеплен"
       @car_quantity -= 1
     else
@@ -93,8 +94,8 @@ class Train
 
   def move(direction)
     current_station.send_train(self)
-    forward if direction == 'forward'
-    back if direction == 'back'
+    forward if direction == :forward
+    back if direction == :back
     current_station.take_train(self)
   end
 
@@ -123,4 +124,13 @@ class Train
   end
 end
 
+st1 = Station.new('First')
+st2 = Station.new('Second')
 
+ro = Route.new(st1, st2)
+
+tr = Train.new('FS-12', :passenger)
+tr.take_route(ro)
+
+tr.move(:forward)
+tr.move(:back)
