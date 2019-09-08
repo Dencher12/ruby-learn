@@ -1,8 +1,6 @@
 class CargoTrain < Train
-  def initialize(id)
-    @id = id
-    @cars = []
-    @speed = 0
+  def initialize(name)
+    super(name)
   end
 
   def hook(car)

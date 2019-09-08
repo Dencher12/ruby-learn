@@ -1,11 +1,10 @@
 class Train
   attr_reader :id, :car_quantity, :speed, :station_index
 
-  def initialize(id)
-    @id = id
-    @car_quantity = car_quantity
+  def initialize(name)
+    @name = name
     @speed = 0
-    puts @type.class
+    @cars = []
   end
 
   def brake
@@ -19,23 +18,23 @@ class Train
   def hook(car, type = nil)
     if @speed.zero? && car.class == type || type.nil?
       @cars << car
-      puts "Поезд #{id}: Вагон успешно прицеплен"
+      puts "Поезд #{name}: Вагон успешно прицеплен"
     else
-      puts "Поезд #{id}: Ошибка (скорость > 0 или это не грузовой вагон)"
+      puts "Поезд #{name}: Ошибка (скорость > 0 или это не грузовой вагон)"
     end
   end
 
   def unhook(car)
-    if @speed.zero? && @cars.delete(car)
-      puts "Поезд #{id}: Вагон успешно отцеплен"
-      @car_quantity -= 1
+    if @speed.zero?
+      puts "Поезд #{name}: Вагон успешно отцеплен"
+      @cars.delete(car)
     else
-      puts "Поезд #{id}: Невозвожно отцепить вагон во время движения"
+      puts "Поезд #{name}: Невозвожно отцепить вагон во время движения"
     end
   end
 
   def take_route(route)
-    puts "Поезд #{id}: установлен маршрут #{route.name}"
+    puts "Поезд #{name}: установлен маршрут #{route.name}"
     @route = route
     @station_index = 0
     route.stations[0].take_train(self)
@@ -64,7 +63,7 @@ class Train
     end
   end
 
-  # нужны только для работы внутреннего метода(move)
+  # нужны только для работы внутреннего метода move
   private
 
   def forward

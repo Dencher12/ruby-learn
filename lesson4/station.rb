@@ -8,18 +8,18 @@ class Station
 
   def take_train(train)
     if train.class == CargoTrain
-      puts "Грузовой поезд #{train.id} прибывает на станцию #{@name}"
+      puts "Грузовой поезд #{train.name} прибывает на станцию #{@name}"
     else
-      puts "Пассажирский поезд #{train.id} прибывает на станцию #{@name}"
+      puts "Пассажирский поезд #{train.name} прибывает на станцию #{@name}"
     end
     @trains << train
   end
 
   def send_train(train)
     if train.class == CargoTrain
-      puts "Грузовой поезд #{train.id} отправляется со станции #{@name}"
+      puts "Грузовой поезд #{train.name} отправляется со станции #{@name}"
     else
-      puts "Пассажирский поезд #{train.id} отправляется со станции #{@name}"
+      puts "Пассажирский поезд #{train.name} отправляется со станции #{@name}"
     end
     @trains.delete(train)
   end
