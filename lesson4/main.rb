@@ -3,10 +3,8 @@ require_relative 'route'
 require_relative 'train'
 require_relative 'cargo_train'
 require_relative 'passenger_train'
-
 require_relative 'cargo_car'
 require_relative 'passenger_car'
-require_relative 'controls'
 
 puts ''
 puts '*********************************************КОМАНДЫ***********************************************'
@@ -24,16 +22,13 @@ puts "*  10) go_forward 'id поезда' - переместить поезд в
 puts "*  11) go_back 'id поезда' - переместить поезд назад (если маршрут установлен)                    *"
 puts "*  12) print_stations 'id маршрута' - вывести список станций на экран                             *"
 puts "*  13) print_trains 'id станции' - вывести список поездов на экран                                *"
+puts "*  14) create_cargo_car 'id гр. вагона' - создать грузовой вагон                                  *"
+puts "*  15) create_passenger_car 'id  пасс. вагона' - создать пассажирский вагон                       *"
 puts '*                                                                                                 *'
 puts '***************************************************************************************************'
 puts ''
 
 data = {}
-
-#TODO:
-#реализовать 12 и 13 команды
-#добавить возможность создания вагонов (ещё две команды)
-
 
 loop do
   query = gets.chomp.split(' ')
@@ -72,8 +67,24 @@ loop do
 
   when 'go_back'
     data[query[1]].move(:back)
+
+  when 'print_stations'
+    data[query[1]].stations.each do |station|
+      puts station.name
+    end
+
+  when 'print_trains'
+    data[query[1]].trains.each do |train|
+      puts train.name
+    end
+
+  when 'create_cargo_car'
+    data[query[1]] = CargoCar.new
+
+  when 'create_passenger_car'
+    data[query[1]] = PassangerCar.new
+
+  else puts "Ошибка: команда не найдена"
+
   end
-
 end
-
-puts data
