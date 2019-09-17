@@ -6,11 +6,11 @@ class PassengerCar
   attr_reader :seats_number, :reserved_places
 
   def initialize(seats_number)
-    @seats_number = seats_number
+    @seats_number = seats_number.to_i
+    @reserved_places = 0
   end
 
   def reserve_place
-    @reserved_places ||= 0
     @reserved_places += 1
   end
 
